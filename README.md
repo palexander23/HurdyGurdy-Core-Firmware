@@ -20,5 +20,5 @@ sudo apt install cmake gcc-arm-none-eabi libnewlib-arm-none-eabi libstdc++-arm-n
 
 2. Install submodules
 ```bash
-git submodule update --init --recursive -j4
+git submodule update --init --recursive --jobs 9 --progress 
 ```
