@@ -6,9 +6,15 @@ name: BuildCheck
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ main develop feature/repo-ci ]
+    branches: 
+      - main
+      - develop
+      - feature/***
+      - bugfix/***
   pull_request:
-    branches: [ main develop ]
+    branches: 
+      - main 
+      - develop
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -24,10 +30,12 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-      - uses: textbook/git-checkout-submodule-action@master
 
       - name: Install Prerequisites 
         run: sudo apt install cmake gcc-arm-none-eabi libnewlib-arm-none-eabi libstdc++-arm-none-eabi-newlib
+
+      - name: Initialize Submodules
+        run: git submodule update --init --recursive --jobs 9 
 
       - name: Configure CMake Build
         run: ./configure.sh
