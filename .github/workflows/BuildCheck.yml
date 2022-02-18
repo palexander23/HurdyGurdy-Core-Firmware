@@ -9,8 +9,8 @@ on:
     branches: 
       - main
       - develop
-      - feature/***
-      - bugfix/***
+      - feature/*
+      - bugfix/*
   pull_request:
     branches: 
       - main 
