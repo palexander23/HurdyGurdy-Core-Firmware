@@ -34,7 +34,7 @@ jobs:
         run: sudo apt install cmake gcc-arm-none-eabi libnewlib-arm-none-eabi libstdc++-arm-none-eabi-newlib
 
       - name: Initialize Submodules
-        run: git submodule update --init --recursive --jobs 9 --progress 
+        run: git submodule update --init --recursive --jobs 9 
 
       - name: Configure CMake Build
         run: ./configure.sh
