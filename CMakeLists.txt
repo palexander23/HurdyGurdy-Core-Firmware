@@ -16,10 +16,6 @@ project(hurdygurdy_core_firmware)
 # initialize the Raspberry Pi Pico SDK
 pico_sdk_init()
 
-# enable usb output, disable uart output
-pico_enable_stdio_usb(${PROJECT_NAME} 1)
-pico_enable_stdio_uart(${PROJECT_NAME} 0)
-
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 #######################################
@@ -27,24 +23,32 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 #######################################
 # Define project's main executable
 add_executable(${PROJECT_NAME} 
-    src/main.cpp
+src/main.cpp
 )
 
 target_include_directories(${PROJECT_NAME} INTERFACE
-    src
+src
 )
 
 add_subdirectory(src)
 
 pico_add_extra_outputs(${PROJECT_NAME})
 
+# enable usb output, disable uart output
+pico_enable_stdio_usb(${PROJECT_NAME} 1)
+pico_enable_stdio_uart(${PROJECT_NAME} 0)
+
 #######################################
 ## FreeRTOS Definitions
 #######################################
-FILE(GLOB FreeRTOS_src FreeRTOS-Kernel/*.c)
-
 add_library( FreeRTOS STATIC
-    ${FreeRTOS_src}
+    FreeRTOS-Kernel/tasks.c
+    FreeRTOS-Kernel/timers.c
+    FreeRTOS-Kernel/queue.c
+    FreeRTOS-Kernel/croutine.c
+    FreeRTOS-Kernel/list.c
+    FreeRTOS-Kernel/croutine.c
+    FreeRTOS-Kernel/stream_buffer.c
     FreeRTOS-Kernel/portable/GCC/ARM_CM0/port.c
     FreeRTOS-Kernel/portable/MemMang/heap_4.c
 )
