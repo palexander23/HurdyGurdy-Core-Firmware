@@ -11,8 +11,8 @@
 
 #include <stdio.h>
 
-#include "pico/stdlib.h"
 #include "hardware/gpio.h"
+#include "pico/stdlib.h"
 
 #include "FreeRTOS.h"
 #include "FreeRTOSConfig.h"
@@ -36,8 +36,8 @@
 // Private Function Prototypes
 //-----------------------------------------------------------------
 
-void heartbeatTask(void *param);
-void serialTask(void *param);
+void heartbeatTask(void* param);
+void serialTask(void* param);
 
 //=================================================================
 //-----------------------------------------------------------------
@@ -47,26 +47,25 @@ void serialTask(void *param);
 
 // FreeRTOS Tasks
 
-void heartbeatTask(void *param)
+void heartbeatTask(void* param)
 {
     gpio_init(ONBOARD_LED_PIN);
     gpio_set_dir(ONBOARD_LED_PIN, GPIO_OUT);
 
-    while (1)
-    {
+    while (1) {
         gpio_put(ONBOARD_LED_PIN, 1);
         vTaskDelay(1000);
+
         gpio_put(ONBOARD_LED_PIN, 0);
         vTaskDelay(1000);
     }
 }
 
-void serialTask(void *param)
+void serialTask(void* param)
 {
     stdio_init_all();
 
-    while (1)
-    {
+    while (1) {
         printf("Hello World!\n");
         extra_print();
         vTaskDelay(200);
@@ -105,8 +104,7 @@ int main()
     vTaskStartScheduler();
 
     // SHOULD NOT REACH HERE
-    for (;;)
-    {
+    for (;;) {
         sleep_ms(1000);
     }
 }
