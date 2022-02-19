@@ -29,6 +29,11 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+      
+      - name: Check Formatting 
+        run: |
+           sudo apt install clang-format
+           ./checkformat.sh
 
       - name: Install Prerequisites 
         run: sudo apt install cmake gcc-arm-none-eabi libnewlib-arm-none-eabi libstdc++-arm-none-eabi-newlib

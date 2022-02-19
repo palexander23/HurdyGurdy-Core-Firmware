@@ -15,7 +15,7 @@ The different investigations into MCUs can be found on separate branches.
 ## Install Dependencies
 1. Install packages
 ```bash
-sudo apt install cmake gcc-arm-none-eabi libnewlib-arm-none-eabi libstdc++-arm-none-eabi-newlib
+sudo apt install cmake gcc-arm-none-eabi libnewlib-arm-none-eabi libstdc++-arm-none-eabi-newlib clang-format
 ```
 
 2. Install submodules
