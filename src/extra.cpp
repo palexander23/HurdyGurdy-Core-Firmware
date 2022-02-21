@@ -1,3 +1,8 @@
+/**
+ * @file extra.cpp
+ * @author Peter Alexander (peter.d.alexander23@gmail.com)
+ * @brief Extra function to test CMake multi-file compilation - Implementation
+ */
 
 //-----------------------------------------------------------------
 // Preprocessor Switches

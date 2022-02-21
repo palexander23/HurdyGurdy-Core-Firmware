@@ -36,7 +36,10 @@ jobs:
            ./checkformat.sh
 
       - name: Install Prerequisites 
-        run: sudo apt install cmake gcc-arm-none-eabi libnewlib-arm-none-eabi libstdc++-arm-none-eabi-newlib
+        run: sudo apt install cmake gcc-arm-none-eabi libnewlib-arm-none-eabi libstdc++-arm-none-eabi-newlib doxygen
+
+      - name: Check Documentation
+      - run: doxygen doxyfile
 
       - name: Initialize Submodules
         run: git submodule update --init --recursive --jobs 9 
