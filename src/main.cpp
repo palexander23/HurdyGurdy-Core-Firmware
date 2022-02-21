@@ -1,3 +1,9 @@
+/**
+ * @file    main.cpp
+ * @author  Peter Alexander (peter.d.alexander23@gmail.com)
+ * @brief   Main file for project, contains entry point and FreeRTOS Tasks
+ * @copyright Copyright (c) 2022
+ */
 
 //-----------------------------------------------------------------
 // Preprocessor Switches
@@ -24,6 +30,7 @@
 // Constant Definitions
 //-----------------------------------------------------------------
 
+/// The GPIO pin number corresponding to the on-board LED
 #define ONBOARD_LED_PIN 25
 
 //-----------------------------------------------------------------
@@ -36,7 +43,18 @@
 // Private Function Prototypes
 //-----------------------------------------------------------------
 
+/**
+ * @brief A FreeRTOS task to flash the on-board LED periodically
+ *
+ * @param param An Empty pointer as required by FreeRTOS
+ */
 void heartbeatTask(void* param);
+
+/**
+ * @brief A FreeRTOS task to test USB operations from within a FreeRTOS task
+ *
+ * @param param An Empty pointer as required by FreeRTOS
+ */
 void serialTask(void* param);
 
 //=================================================================
@@ -78,6 +96,13 @@ void serialTask(void* param)
 //-----------------------------------------------------------------
 //=================================================================
 
+/**
+ * @brief The entry point to the firmware
+ *
+ * Initializes FreeRTOS tasks and starts the scheduler.
+ *
+ * @return int Standard Return value for main.
+ */
 int main()
 {
     TaskHandle_t heartbeatTaskHdl = NULL;
@@ -107,6 +132,8 @@ int main()
     for (;;) {
         sleep_ms(1000);
     }
+
+    return 0;
 }
 
 //-----------------------------------------------------------------

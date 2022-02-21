@@ -1,3 +1,8 @@
+/**
+ * @file extra.hpp
+ * @author Peter Alexander (peter.d.alexander23@gmail.com)
+ * @brief Extra function to test CMake multi-file compilation - Header
+ */
 
 #ifndef EXTRA_H_
 #define EXTRA_H_
@@ -26,6 +31,10 @@
 // Public Function Prototypes
 //-----------------------------------------------------------------
 
+/**
+ * @brief Prints an extra string to stdio
+ *
+ */
 void extra_print(void);
 
 //-----------------------------------------------------------------
