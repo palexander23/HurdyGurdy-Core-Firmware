@@ -1,7 +1,7 @@
 /**
- * @file    hal_gpio.cpp
- * @author  Peter Alexander
- * @brief   Implementation for GPIO control
+ * @file    hal_status_led.cpp
+ * @author  Peter Alexander (peter.d.alexander23@gmail.com)
+ * @brief   Implementation for controlling status LED
  * @copyright Copyright (c) 2022
  */
 
@@ -12,19 +12,25 @@
 //-----------------------------------------------------------------
 // Includes
 //-----------------------------------------------------------------
-#include "hal_gpio.h"
+#include "hal_status_led.h"
 
 //-----------------------------------------------------------------
 // Constant Definitions
 //-----------------------------------------------------------------
 
+// None
+
 //-----------------------------------------------------------------
 // Type Definitions
 //-----------------------------------------------------------------
 
+// None
+
 //-----------------------------------------------------------------
 // Private Function Prototypes
 //-----------------------------------------------------------------
+
+// None
 
 //=================================================================
 //-----------------------------------------------------------------
@@ -32,49 +38,39 @@
 //-----------------------------------------------------------------
 //=================================================================
 
+// None
+
 //=================================================================
 //-----------------------------------------------------------------
 // Public Functions
 //-----------------------------------------------------------------
 //=================================================================
 /**
- * @ Initialize the specified GPIO pin.
+ * @brief Initialize the status LED
  *
- * @param pin The number of the GPIO pin to initialize.
  */
-void hal_gpio_init_pin(uint32_t pin)
+void hal_status_led_init()
 {
-    gpio_init(pin);
+    hal_gpio_init_pin(PIN_STATUS_LED);
+    hal_gpio_set_pin_output(PIN_STATUS_LED);
 }
 
 /**
- * @brief Set the specified pin as an output
+ * @brief Set the status led high
  *
- * @param pin The pin to set as an output
  */
-void hal_gpio_set_pin_output(uint32_t pin)
+void hal_status_led_set_high()
 {
-    gpio_set_dir(pin, GPIO_OUT);
+    hal_gpio_pin_high(PIN_STATUS_LED);
 }
 
 /**
- * @brief Set the specified pin HIGH
+ * @brief Set the status led low
  *
- * @param pin The pin to set HIGH
  */
-void hal_gpio_pin_high(uint32_t pin)
+void hal_status_led_set_low()
 {
-    gpio_put(pin, 1);
-}
-
-/**
- * @brief Set the specified pin LOW
- *
- * @param pin The pin to set LOW
- */
-void hal_gpio_pin_low(uint32_t pin)
-{
-    gpio_put(pin, 0);
+    hal_gpio_pin_low(PIN_STATUS_LED);
 }
 
 //-----------------------------------------------------------------

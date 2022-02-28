@@ -17,12 +17,13 @@
 
 #include <stdio.h>
 
-#include "hardware/gpio.h"
 #include "pico/stdlib.h"
 
 #include "FreeRTOS.h"
 #include "FreeRTOSConfig.h"
 #include "task.h"
+
+#include "hal_status_led.h"
 
 #include "extra.hpp"
 
@@ -30,8 +31,7 @@
 // Constant Definitions
 //-----------------------------------------------------------------
 
-/// The GPIO pin number corresponding to the on-board LED
-#define ONBOARD_LED_PIN 25
+// None
 
 //-----------------------------------------------------------------
 // Type Definitions
@@ -67,14 +67,13 @@ void serialTask(void* param);
 
 void heartbeatTask(void* param)
 {
-    gpio_init(ONBOARD_LED_PIN);
-    gpio_set_dir(ONBOARD_LED_PIN, GPIO_OUT);
+    hal_status_led_init();
 
     while (1) {
-        gpio_put(ONBOARD_LED_PIN, 1);
+        hal_status_led_set_high();
         vTaskDelay(1000);
 
-        gpio_put(ONBOARD_LED_PIN, 0);
+        hal_status_led_set_low();
         vTaskDelay(1000);
     }
 }
