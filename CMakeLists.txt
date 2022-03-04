@@ -3,68 +3,104 @@
 #######################################
 cmake_minimum_required(VERSION 3.13)
 
-#######################################
-## Raspberry Pi Pico Setup
-#######################################
+set(TARGET_GROUP production CACHE STRING "Group to build")
 
-# initialize pico-sdk from submodule
-# note: this must happen before project()
-include(pico-sdk/pico_sdk_init.cmake)
+if(TARGET_GROUP STREQUAL production)
+    message("####################################")
+    message("## Setting Up Production Firmware...")
+    message("####################################")
 
-project(hurdygurdy_core_firmware)
+    #######################################
+    ## Raspberry Pi Pico Setup
+    #######################################
 
-# initialize the Raspberry Pi Pico SDK
-pico_sdk_init()
+    # initialize pico-sdk from submodule
+    # note: this must happen before project()
+    include(pico-sdk/pico_sdk_init.cmake)
 
-set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+    project(hurdygurdy_core_firmware)
 
-#######################################
-## Project Executable/SRC Definition 
-#######################################
-# Define project's main executable
-add_executable(${PROJECT_NAME} 
-    src/main.cpp
-)
+    # initialize the Raspberry Pi Pico SDK
+    pico_sdk_init()
 
-target_include_directories(${PROJECT_NAME} PUBLIC
-    ${CMAKE_SOURCE_DIR}/src
-    ${CMAKE_SOURCE_DIR}/hal
-)
+    set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-add_subdirectory(src)
-add_subdirectory(hal)
+    #######################################
+    ## Project Executable/SRC Definition 
+    #######################################
+    # Define project's main executable
+    add_executable(${PROJECT_NAME} 
+        src/main.cpp
+    )
 
-pico_add_extra_outputs(${PROJECT_NAME})
+    target_include_directories(${PROJECT_NAME} PUBLIC
+        ${CMAKE_SOURCE_DIR}/src
+        ${CMAKE_SOURCE_DIR}/hal
+    )
 
-# enable usb output, disable uart output
-pico_enable_stdio_usb(${PROJECT_NAME} 1)
-pico_enable_stdio_uart(${PROJECT_NAME} 0)
+    add_subdirectory(src)
+    add_subdirectory(hal)
 
-#######################################
-## FreeRTOS Definitions
-#######################################
-add_library( FreeRTOS STATIC
-    FreeRTOS-Kernel/tasks.c
-    FreeRTOS-Kernel/timers.c
-    FreeRTOS-Kernel/queue.c
-    FreeRTOS-Kernel/croutine.c
-    FreeRTOS-Kernel/list.c
-    FreeRTOS-Kernel/croutine.c
-    FreeRTOS-Kernel/stream_buffer.c
-    FreeRTOS-Kernel/portable/GCC/ARM_CM0/port.c
-    FreeRTOS-Kernel/portable/MemMang/heap_4.c
-)
+    pico_add_extra_outputs(${PROJECT_NAME})
 
-target_include_directories( FreeRTOS PUBLIC
-    FreeRTOS-Kernel/include
-    src/
-    FreeRTOS-Kernel/portable/GCC/ARM_CM0
-)
+    # enable usb output, disable uart output
+    pico_enable_stdio_usb(${PROJECT_NAME} 1)
+    pico_enable_stdio_uart(${PROJECT_NAME} 0)
 
-#######################################
-## Link libraries to executable
-#######################################
-target_link_libraries(${PROJECT_NAME} 
-    pico_stdlib
-    FreeRTOS
-)
+    #######################################
+    ## FreeRTOS Definitions
+    #######################################
+    add_library( FreeRTOS STATIC
+        FreeRTOS-Kernel/tasks.c
+        FreeRTOS-Kernel/timers.c
+        FreeRTOS-Kernel/queue.c
+        FreeRTOS-Kernel/croutine.c
+        FreeRTOS-Kernel/list.c
+        FreeRTOS-Kernel/croutine.c
+        FreeRTOS-Kernel/stream_buffer.c
+        FreeRTOS-Kernel/portable/GCC/ARM_CM0/port.c
+        FreeRTOS-Kernel/portable/MemMang/heap_4.c
+    )
+
+    target_include_directories( FreeRTOS PUBLIC
+        FreeRTOS-Kernel/include
+        src/
+        FreeRTOS-Kernel/portable/GCC/ARM_CM0
+    )
+
+    #######################################
+    ## Link libraries to executable
+    #######################################
+    target_link_libraries(${PROJECT_NAME} 
+        pico_stdlib
+        FreeRTOS
+    )
+
+elseif(TARGET_GROUP STREQUAL test)
+    message("####################################")
+    message("## Setting Up Testing...")
+    message("####################################")
+
+    project(hurdygurdy_core_firmware_tests)
+
+    # Enable CTest for automatic gathering of test executables
+    include(CTest)
+
+    # Add the subdirectory containing the tests
+    # A CMakeLists file in that directory will handle adding the tests
+    add_subdirectory(test)
+
+    # Make Unity source files available as a static library
+    # This is accessible from all subdirectories
+    add_library(Unity STATIC
+        Unity/src/unity.c
+    )
+
+    target_include_directories(Unity PUBLIC
+        Unity/src
+    )
+
+else()
+    message(FATAL_ERROR "Geven TARGET_GROUP unknown")
+
+endif()
