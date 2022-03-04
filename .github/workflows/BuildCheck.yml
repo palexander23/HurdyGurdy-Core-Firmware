@@ -49,3 +49,6 @@ jobs:
 
       - name: Run Build 
         run: ./build.sh 
+
+      - name: Run Unit Tests
+        run : ./run-tests.sh
