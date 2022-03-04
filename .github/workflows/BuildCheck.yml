@@ -36,7 +36,7 @@ jobs:
            ./checkformat.sh
 
       - name: Install Prerequisites 
-        run: sudo apt install cmake gcc-arm-none-eabi libnewlib-arm-none-eabi libstdc++-arm-none-eabi-newlib doxygen
+        run: sudo apt install cmake gcc-arm-none-eabi libnewlib-arm-none-eabi libstdc++-arm-none-eabi-newlib doxygen graphviz
 
       - name: Check Documentation
         run: ./generate-docs.sh
