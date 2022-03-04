@@ -23,14 +23,16 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 #######################################
 # Define project's main executable
 add_executable(${PROJECT_NAME} 
-src/main.cpp
+    src/main.cpp
 )
 
-target_include_directories(${PROJECT_NAME} INTERFACE
-src
+target_include_directories(${PROJECT_NAME} PUBLIC
+    ${CMAKE_SOURCE_DIR}/src
+    ${CMAKE_SOURCE_DIR}/hal
 )
 
 add_subdirectory(src)
+add_subdirectory(hal)
 
 pico_add_extra_outputs(${PROJECT_NAME})
 
