@@ -1,1 +1,1 @@
-cmake -S . -B build/
+cmake -S . -B build/ -DTARGET_GROUP=production
