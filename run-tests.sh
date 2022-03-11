@@ -1,9 +1,11 @@
 #!/bin/bash
 
+set -e
+
 # Configure output 
 if [[ ! -d build_tests ]]
 then
-    cmake -S . -B build/ -DTARGET_GROUP=test
+    cmake -S . -B build_tests/ -DTARGET_GROUP=test
 fi
 
 # Build the configuired test suites
