@@ -1,16 +1,16 @@
 #!/bin/bash
 
-# Clear build directory if it exists
-rm -r build
-
 # Configure output 
-cmake -S . -B build/ -DTARGET_GROUP=test
+if [[ ! -d build_tests ]]
+then
+    cmake -S . -B build/ -DTARGET_GROUP=test
+fi
 
 # Build the configuired test suites
-./build.sh
+cd build_tests && make -j9
 
 # Run CTest
 echo ""
 echo "-------------------------------"
 echo ""
-cd build && ctest
+ctest
