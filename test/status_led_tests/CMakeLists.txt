@@ -1,6 +1,6 @@
 add_executable(status_led_tests_exe
     status_led_tests.c
-    ../../src/hal_status_led.cpp
+    ../../src/status_led.cpp
 )
 
 

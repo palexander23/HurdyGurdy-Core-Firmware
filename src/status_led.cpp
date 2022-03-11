@@ -1,5 +1,5 @@
 /**
- * @file    hal_status_led.cpp
+ * @file    status_led.cpp
  * @author  Peter Alexander (peter.d.alexander23@gmail.com)
  * @brief   Implementation for controlling status LED
  * @copyright Copyright (c) 2022
@@ -12,7 +12,7 @@
 //-----------------------------------------------------------------
 // Includes
 //-----------------------------------------------------------------
-#include "hal_status_led.h"
+#include "status_led.h"
 
 //-----------------------------------------------------------------
 // Constant Definitions
@@ -49,7 +49,7 @@
  * @brief Initialize the status LED
  *
  */
-void hal_status_led_init()
+void status_led_init()
 {
     hal_gpio_init_pin(PIN_STATUS_LED);
     hal_gpio_set_pin_output(PIN_STATUS_LED);
@@ -59,7 +59,7 @@ void hal_status_led_init()
  * @brief Set the status led high
  *
  */
-void hal_status_led_set_high()
+void status_led_set_high()
 {
     hal_gpio_pin_high(PIN_STATUS_LED);
 }
@@ -68,7 +68,7 @@ void hal_status_led_set_high()
  * @brief Set the status led low
  *
  */
-void hal_status_led_set_low()
+void status_led_set_low()
 {
     hal_gpio_pin_low(PIN_STATUS_LED);
 }

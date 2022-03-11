@@ -23,7 +23,7 @@
 #include "FreeRTOSConfig.h"
 #include "task.h"
 
-#include "hal_status_led.h"
+#include "status_led.h"
 
 #include "extra.hpp"
 
@@ -67,13 +67,13 @@ void serialTask(void* param);
 
 void heartbeatTask(void* param)
 {
-    hal_status_led_init();
+    status_led_init();
 
     while (1) {
-        hal_status_led_set_high();
+        status_led_set_high();
         vTaskDelay(1000);
 
-        hal_status_led_set_low();
+        status_led_set_low();
         vTaskDelay(1000);
     }
 }
