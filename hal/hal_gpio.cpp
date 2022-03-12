@@ -5,6 +5,10 @@
  * @copyright Copyright (c) 2022
  */
 
+#ifdef __cplusplus
+extern "C" {
+#endif // __cplusplus
+
 //-----------------------------------------------------------------
 // Preprocessor Switches
 //-----------------------------------------------------------------
@@ -76,6 +80,10 @@ void hal_gpio_pin_low(uint32_t pin)
 {
     gpio_put(pin, 0);
 }
+
+#ifdef __cplusplus
+}
+#endif // __cplusplus
 
 //-----------------------------------------------------------------
 // End Of File
