@@ -5,6 +5,10 @@
  * @copyright Copyright (c) 2022
  */
 
+#ifdef __cplusplus
+extern "C" {
+#endif // __cplusplus
+
 #ifndef HAL_GPIO_H_
 #define HAL_GPIO_H_
 
@@ -58,6 +62,9 @@ void hal_gpio_pin_low(uint32_t pin);
 
 #endif // HAL_GPIO_H_
 
+#ifdef __cplusplus
+}
+#endif //__cplusplus
 //-----------------------------------------------------------------
 // End Of File
 //-----------------------------------------------------------------
