@@ -7,13 +7,19 @@
 #ifndef EXTRA_H_
 #define EXTRA_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif // __cplusplus
+
 //-----------------------------------------------------------------
 // Includes
 //-----------------------------------------------------------------
 
 #include <stdio.h>
 
+#ifndef TEST
 #include "pico/stdlib.h"
+#endif // TEST
 
 //-----------------------------------------------------------------
 // Constant Definitions
@@ -35,12 +41,15 @@
  * @brief Prints an extra string to stdio
  *
  */
-void extra_print(void);
+int extra_print(void);
 
 //-----------------------------------------------------------------
 
 #endif // EXTRA_H_
 
+#ifdef __cplusplus
+}
+#endif // __cplusplus
 //-----------------------------------------------------------------
 // End Of File
 //-----------------------------------------------------------------

@@ -83,6 +83,9 @@ elseif(TARGET_GROUP STREQUAL test)
 
     project(hurdygurdy_core_firmware_tests)
 
+    # Set a compile flag so files can switch off platform specific features
+    add_compile_definitions(TEST)
+
     # Enable CTest for automatic gathering of test executables
     include(CTest)
 
