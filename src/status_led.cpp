@@ -5,6 +5,10 @@
  * @copyright Copyright (c) 2022
  */
 
+#ifdef __cplusplus
+extern "C" {
+#endif // __cplusplus
+
 //-----------------------------------------------------------------
 // Preprocessor Switches
 //-----------------------------------------------------------------
@@ -51,8 +55,8 @@
  */
 void status_led_init()
 {
-    hal_gpio_init_pin(PIN_STATUS_LED);
-    hal_gpio_set_pin_output(PIN_STATUS_LED);
+    hal_gpio_init_pin(STATUS_LED_PIN);
+    hal_gpio_set_pin_output(STATUS_LED_PIN);
 }
 
 /**
@@ -61,7 +65,7 @@ void status_led_init()
  */
 void status_led_set_high()
 {
-    hal_gpio_pin_high(PIN_STATUS_LED);
+    hal_gpio_pin_high(STATUS_LED_PIN);
 }
 
 /**
@@ -70,8 +74,12 @@ void status_led_set_high()
  */
 void status_led_set_low()
 {
-    hal_gpio_pin_low(PIN_STATUS_LED);
+    hal_gpio_pin_low(STATUS_LED_PIN);
 }
+
+#ifdef __cplusplus
+}
+#endif // __cplusplus
 
 //-----------------------------------------------------------------
 // End Of File

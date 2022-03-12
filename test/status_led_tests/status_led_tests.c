@@ -14,6 +14,8 @@
 //-----------------------------------------------------------------
 #include "unity.h"
 
+#include "status_led.h"
+
 //-----------------------------------------------------------------
 // Constant Definitions
 //-----------------------------------------------------------------
@@ -42,21 +44,31 @@ void setUp() { }
 
 void tearDown() { }
 
-void testAssertTrue(void)
-{
-    TEST_ASSERT_TRUE(1 == 1);
+void testLEDInitializedOFF() {
+    status_led_init();
+
+    TEST_ASSERT_MESSAGE(fake_hal_gpio_pin_mode_arr[STATUS_LED_PIN] == GPIO_OUTPUT, "Pin Mode Not correctly set");
+    TEST_ASSERT_MESSAGE(fake_hal_gpio_pin_val_arr[STATUS_LED_PIN] == 0, "Output Not Initialized to Zero");
 }
 
-void testAssertFalse(void)
-{
-    TEST_ASSERT_FALSE(1 == 2);
+void testLEDSequence() {
+    status_led_init();
+
+    TEST_ASSERT_MESSAGE(fake_hal_gpio_pin_val_arr[STATUS_LED_PIN] == 0, "LED did not start LOW");
+    
+    status_led_set_high();
+    TEST_ASSERT_MESSAGE(fake_hal_gpio_pin_val_arr[STATUS_LED_PIN] == 1, "LED did not go HIGH");
+
+    status_led_set_low();
+    TEST_ASSERT_MESSAGE(fake_hal_gpio_pin_val_arr[STATUS_LED_PIN] == 0, "LED did not return LOW");
 }
+
 
 int main()
 {
     UNITY_BEGIN();
-    RUN_TEST(testAssertTrue);
-    RUN_TEST(testAssertFalse);
+    RUN_TEST(testLEDInitializedOFF);
+    RUN_TEST(testLEDSequence);
     return UNITY_END();
 }
 //-----------------------------------------------------------------

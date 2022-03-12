@@ -21,7 +21,7 @@
  * @brief The pin number for the status LED
  *
  */
-#define PIN_STATUS_LED 25
+#define STATUS_LED_PIN 25
 
 //-----------------------------------------------------------------
 // Type Definitions

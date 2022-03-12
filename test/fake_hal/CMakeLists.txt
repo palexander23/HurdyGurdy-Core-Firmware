@@ -6,3 +6,7 @@ add_library(Fake_HAL
 target_include_directories(Fake_HAL PUBLIC
     .
 )
+
+target_link_libraries(Fake_HAL PRIVATE
+    Unity
+)

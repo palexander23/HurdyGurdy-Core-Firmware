@@ -15,4 +15,4 @@ cd build_tests && make -j9
 echo ""
 echo "-------------------------------"
 echo ""
-ctest
+CTEST_OUTPUT_ON_FAILURE=1 ctest

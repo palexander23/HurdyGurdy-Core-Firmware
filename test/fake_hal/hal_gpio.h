@@ -22,13 +22,29 @@ extern "C" {
 // Constant Definitions
 //-----------------------------------------------------------------
 
+#define NUM_GPIO 29
+
+extern const char FAKE_HAL_GPIO_DESCRIPTOR_ARR[NUM_GPIO][256];
+
 //-----------------------------------------------------------------
 // Type Definitions
 //-----------------------------------------------------------------
 
+typedef enum _gpio_pin_mode_t {
+    GPIO_INPUT,
+    GPIO_OUTPUT,
+    GPIO_ANALOG_IN,
+    GPIO_ANALOG_OUT,
+    GPIO_UNINITIALIZED,
+} gpio_pin_mode_t;
+
 //-----------------------------------------------------------------
 // Public Function Prototypes
 //-----------------------------------------------------------------
+
+extern gpio_pin_mode_t fake_hal_gpio_pin_mode_arr[NUM_GPIO];
+
+extern float fake_hal_gpio_pin_val_arr[NUM_GPIO];
 
 /**
  * @ Initialize the specified GPIO pin.

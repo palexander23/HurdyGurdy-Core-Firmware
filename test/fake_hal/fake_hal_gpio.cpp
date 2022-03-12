@@ -16,13 +16,13 @@ extern "C" {
 // Includes
 //-----------------------------------------------------------------
 
+#include "unity.h"
+
 #include "hal_gpio.h"
 
 //-----------------------------------------------------------------
 // Constant Definitions
 //-----------------------------------------------------------------
-
-#define NUM_GPIO 29
 
 const char FAKE_HAL_GPIO_DESCRIPTOR_ARR[NUM_GPIO][256] = {
     "GPIO 00 - NOT ASSIGNED",
@@ -60,18 +60,11 @@ const char FAKE_HAL_GPIO_DESCRIPTOR_ARR[NUM_GPIO][256] = {
 // Type Definitions
 //-----------------------------------------------------------------
 
-typedef enum _gpio_pin_mode_t {
-    GPIO_INPUT,
-    GPIO_OUTPUT,
-    GPIO_ANALOG_IN,
-    GPIO_ANALOG_OUT,
-} gpio_pin_mode_t;
-
 //-----------------------------------------------------------------
 // Private Function Prototypes
 //-----------------------------------------------------------------
 
-gpio_pin_mode_t fake_hal_gpio_pin_mode_arr = { GPIO_INPUT };
+gpio_pin_mode_t fake_hal_gpio_pin_mode_arr[NUM_GPIO] = { GPIO_UNINITIALIZED };
 
 float fake_hal_gpio_pin_val_arr[NUM_GPIO] = { 0 };
 
@@ -92,28 +85,48 @@ float fake_hal_gpio_pin_val_arr[NUM_GPIO] = { 0 };
  *
  * @param pin The number of the GPIO pin to initialize.
  */
-void hal_gpio_init_pin(uint32_t pin) { }
+void hal_gpio_init_pin(uint32_t pin)
+{
+    fake_hal_gpio_pin_mode_arr[pin] = GPIO_INPUT;
+}
 
 /**
  * @brief Set the specified pin as an output
  *
  * @param pin The pin to set as an output
  */
-void hal_gpio_set_pin_output(uint32_t pin) { }
+void hal_gpio_set_pin_output(uint32_t pin)
+{
+    fake_hal_gpio_pin_mode_arr[pin] = GPIO_OUTPUT;
+}
 
 /**
  * @brief Set the specified pin HIGH
  *
  * @param pin The pin to set HIGH
  */
-void hal_gpio_pin_high(uint32_t pin) { }
+void hal_gpio_pin_high(uint32_t pin)
+{
+    if (fake_hal_gpio_pin_mode_arr[pin] == GPIO_OUTPUT) {
+        fake_hal_gpio_pin_val_arr[pin] = 1;
+    } else {
+        TEST_FAIL_MESSAGE("Attempt was made to set pin high when it was not set as GPIO_OUTPUT\n");
+    }
+}
 
 /**
  * @brief Set the specified pin LOW
  *
  * @param pin The pin to set LOW
  */
-void hal_gpio_pin_low(uint32_t pin) { }
+void hal_gpio_pin_low(uint32_t pin)
+{
+    if (fake_hal_gpio_pin_mode_arr[pin] == GPIO_OUTPUT) {
+        fake_hal_gpio_pin_val_arr[pin] = 0;
+    } else {
+        TEST_FAIL_MESSAGE("Attempt was made to set pin high when it was not set as GPIO_OUTPUT\n");
+    }
+}
 
 #ifdef __cplusplus
 }

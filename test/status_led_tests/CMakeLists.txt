@@ -3,7 +3,9 @@ add_executable(status_led_tests_exe
     ../../src/status_led.cpp
 )
 
-
+target_include_directories(status_led_tests_exe PUBLIC
+    ../../src
+)
 
 target_link_libraries(status_led_tests_exe
     Unity
