@@ -29,14 +29,14 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+
+      - uses: awalsh128/cache-apt-pkgs-action@v1
+        with:
+          packages: cmake gcc-arm-none-eabi libnewlib-arm-none-eabi libstdc++-arm-none-eabi-newlib doxygen graphviz clang-format
+          version: 1.0
       
       - name: Check Formatting 
-        run: |
-           sudo apt install clang-format
-           ./checkformat.sh
-
-      - name: Install Prerequisites 
-        run: sudo apt install cmake gcc-arm-none-eabi libnewlib-arm-none-eabi libstdc++-arm-none-eabi-newlib doxygen graphviz
+        run: ./checkformat.sh
 
       - name: Check Documentation
         run: ./generate-docs.sh
