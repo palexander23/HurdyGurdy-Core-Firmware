@@ -30,6 +30,9 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
+      - name: Update Package List
+        run: sudo apt update -y
+
       - uses: awalsh128/cache-apt-pkgs-action@v1
         with:
           packages: cmake gcc-arm-none-eabi libnewlib-arm-none-eabi libstdc++-arm-none-eabi-newlib doxygen graphviz clang-format
