@@ -42,7 +42,7 @@ jobs:
         run: ./generate-docs.sh
 
       - name: Initialize Submodules
-        run: git submodule update --init --recursive --jobs 9 
+        run: git submodule update --init --jobs 9 
 
       - name: Configure CMake Build
         run: ./configure.sh
