@@ -35,7 +35,7 @@ jobs:
 
       - uses: awalsh128/cache-apt-pkgs-action@v1
         with:
-          packages: cmake gcc-arm-none-eabi libnewlib-arm-none-eabi libstdc++-arm-none-eabi-newlib doxygen graphviz clang-format
+          packages: cmake gcc-arm-none-eabi doxygen graphviz clang-format
           version: 1.0
       
       - name: Check Formatting 
