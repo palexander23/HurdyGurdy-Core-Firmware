@@ -6,9 +6,14 @@ name: BuildCheck
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ main develop feature/repo-ci ]
+    branches: 
+      - main
+      - develop
+      - feature/*
+      - bugfix/*
   pull_request:
-    branches: [ main develop ]
+    branches: 
+      - main 
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -24,13 +29,26 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-      - uses: textbook/git-checkout-submodule-action@master
+      
+      - name: Check Formatting 
+        run: |
+           sudo apt install clang-format
+           ./checkformat.sh
 
       - name: Install Prerequisites 
-        run: sudo apt install cmake gcc-arm-none-eabi libnewlib-arm-none-eabi libstdc++-arm-none-eabi-newlib
+        run: sudo apt install cmake gcc-arm-none-eabi libnewlib-arm-none-eabi libstdc++-arm-none-eabi-newlib doxygen graphviz
+
+      - name: Check Documentation
+        run: ./generate-docs.sh
+
+      - name: Initialize Submodules
+        run: git submodule update --init --jobs 9 
 
       - name: Configure CMake Build
         run: ./configure.sh
 
       - name: Run Build 
         run: ./build.sh 
+
+      - name: Run Unit Tests
+        run : ./run-tests.sh
