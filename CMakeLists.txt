@@ -20,6 +20,7 @@ if(TARGET_GROUP STREQUAL production)
 
     project(hurdygurdy_core_firmware)
 
+
     # initialize the Raspberry Pi Pico SDK
     pico_sdk_init()
 
@@ -43,9 +44,9 @@ if(TARGET_GROUP STREQUAL production)
 
     pico_add_extra_outputs(${PROJECT_NAME})
 
-    # enable usb output, disable uart output
-    pico_enable_stdio_usb(${PROJECT_NAME} 1)
-    pico_enable_stdio_uart(${PROJECT_NAME} 0)
+    # Uncomment to enable usb serial output, disable uart output
+    # pico_enable_stdio_usb(${PROJECT_NAME} 1)
+    # pico_enable_stdio_uart(${PROJECT_NAME} 0)
 
     #######################################
     ## FreeRTOS Definitions
