@@ -1,1 +1,1 @@
-cd build && make -j9
+cd build && ninja -j20
