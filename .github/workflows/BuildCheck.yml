@@ -44,7 +44,7 @@ jobs:
       - name: Initialize Submodules
         run: |
           git submodule update --init --jobs 9
-          cd pico-sdk && git submodule --ini --jobs 9 
+          cd pico-sdk && git submodule update --init --jobs 9 
 
       - name: Configure CMake Build
         run: ./configure.sh
