@@ -36,13 +36,15 @@ jobs:
            ./checkformat.sh
 
       - name: Install Prerequisites 
-        run: sudo apt install cmake gcc-arm-none-eabi libnewlib-arm-none-eabi libstdc++-arm-none-eabi-newlib doxygen graphviz
+        run: sudo apt install cmake gcc-arm-none-eabi libnewlib-arm-none-eabi libstdc++-arm-none-eabi-newlib doxygen graphviz ninja-build
 
       - name: Check Documentation
         run: ./generate-docs.sh
 
       - name: Initialize Submodules
-        run: git submodule update --init --jobs 9 
+        run: |
+          git submodule update --init --jobs 9
+          cd pico-sdk && git submodule update --init --jobs 9 
 
       - name: Configure CMake Build
         run: ./configure.sh

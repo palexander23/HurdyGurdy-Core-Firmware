@@ -8,7 +8,7 @@
             "request": "launch",
             "type": "cortex-debug",
             "servertype": "openocd",
-            "armToolchainPath": "/opt/gcc-arm-none-eabi-10.3-2021.10/bin",
+            "armToolchainPath": "/usr/bin",
             "device": "RP2040",
             "configFiles": [
                 "interface/picoprobe.cfg",

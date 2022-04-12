@@ -14,9 +14,14 @@ The different investigations into MCUs can be found on separate branches.
 
 ## Install Dependencies
 1. Install packages
+### Ubuntu
 ```bash
-sudo apt install cmake gcc-arm-none-eabi libnewlib-arm-none-eabi libstdc++-arm-none-eabi-newlib clang-format doxygen graphviz
+sudo apt install cmake gcc-arm-none-eabi libnewlib-arm-none-eabi libstdc++-arm-none-eabi-newlib clang-format doxygen graphviz ninja-build
 ```
+
+### Fedora
+sudo dnf install build-essentials arm-none-eabi-gcc-cs arm-none-eabi-binutils arm-none-eabi-newlib gcc-arm-linux-gnu arm-none-eabi-gcc-cs-c++ doxygen graphviz ninja-build clang-tools-extra -y
+
 
 2. Install submodules
 ```bash
