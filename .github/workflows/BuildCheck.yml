@@ -30,10 +30,6 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - name: Install Packages
-        run: |
-            apt-get install -y git
-
       - uses: actions/checkout@v3
       
       - name: Check Formatting 
