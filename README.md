@@ -20,8 +20,10 @@ sudo apt install cmake gcc-arm-none-eabi libnewlib-arm-none-eabi libstdc++-arm-n
 ```
 
 ### Fedora
-sudo dnf install build-essentials arm-none-eabi-gcc-cs arm-none-eabi-binutils arm-none-eabi-newlib gcc-arm-linux-gnu arm-none-eabi-gcc-cs-c++ doxygen graphviz ninja-build clang-tools-extra -y
 
+```bash
+sudo dnf install build-essentials arm-none-eabi-gcc-cs arm-none-eabi-binutils arm-none-eabi-newlib gcc-arm-linux-gnu arm-none-eabi-gcc-cs-c++ doxygen graphviz ninja-build clang-tools-extra -y
+```
 
 2. Install submodules
 ```bash
