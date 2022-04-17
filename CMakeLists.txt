@@ -44,10 +44,6 @@ if(TARGET_GROUP STREQUAL production)
 
     pico_add_extra_outputs(${PROJECT_NAME})
 
-    # Uncomment to enable usb serial output, disable uart output
-    # pico_enable_stdio_usb(${PROJECT_NAME} 1)
-    # pico_enable_stdio_uart(${PROJECT_NAME} 0)
-
     #######################################
     ## FreeRTOS Definitions
     #######################################
@@ -72,9 +68,11 @@ if(TARGET_GROUP STREQUAL production)
     #######################################
     ## Link libraries to executable
     #######################################
-    target_link_libraries(${PROJECT_NAME} 
+    target_link_libraries(${PROJECT_NAME}
         pico_stdlib
         FreeRTOS
+        tinyusb_device
+        tinyusb_board
     )
 
 elseif(TARGET_GROUP STREQUAL test)

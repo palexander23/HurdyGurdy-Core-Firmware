@@ -24,6 +24,7 @@
 #include "task.h"
 
 #include "status_led.h"
+#include "usb_interface.hpp"
 
 #include "extra.hpp"
 
@@ -78,34 +79,15 @@ void heartbeatTask(void* param)
     }
 }
 
-void serialTask(void* param)
-{
-    stdio_init_all();
-
-    while (1) {
-        printf("Hello World!\n");
-        extra_print();
-        vTaskDelay(200);
-    }
-}
-
-//=================================================================
-//-----------------------------------------------------------------
-// Public Functions
-//-----------------------------------------------------------------
-//=================================================================
-
 /**
- * @brief The entry point to the firmware
+ * @brief Initializes FreeRTOS tasks and starts scheduler
  *
- * Initializes FreeRTOS tasks and starts the scheduler.
- *
- * @return int Standard Return value for main.
+ * @return int Should never return
  */
 int main()
 {
     TaskHandle_t heartbeatTaskHdl = NULL;
-    TaskHandle_t serialTaskHdl = NULL;
+    TaskHandle_t usbTaskHdl = NULL;
 
     uint32_t status;
 
@@ -118,12 +100,12 @@ int main()
         &heartbeatTaskHdl);
 
     status = xTaskCreate(
-        serialTask,
-        "Serial",
+        usbTask,
+        "USB",
         1024,
         NULL,
         tskIDLE_PRIORITY + 1,
-        &serialTaskHdl);
+        &usbTaskHdl);
 
     vTaskStartScheduler();
 
