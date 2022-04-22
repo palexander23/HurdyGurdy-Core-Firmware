@@ -110,8 +110,26 @@ int main()
     vTaskStartScheduler();
 
     // SHOULD NOT REACH HERE
+    // Flash status LED in obvious way
+
+    uint32_t delay_counter = 0;
+
+    status_led_init();
+
     for (;;) {
-        sleep_ms(1000);
+        status_led_set_high();
+
+        // Short Delay
+        while (delay_counter < 1000000) {
+            delay_counter++;
+        }
+
+        status_led_set_low();
+
+        // Short Delay
+        while (delay_counter > 0) {
+            delay_counter--;
+        }
     }
 
     return 0;

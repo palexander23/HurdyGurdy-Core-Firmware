@@ -52,7 +52,9 @@ extern "C" {
  */
 void usbTask(void* param)
 {
-    vTaskDelay(100);
+    while (1) {
+        vTaskDelay(100);
+    }
 }
 
 //-----------------------------------------------------------------
