@@ -20,6 +20,7 @@ extern "C" {
 #include "FreeRTOS.h"
 #include "FreeRTOSConfig.h"
 #include "task.h"
+#include "tusb.h"
 
 //-----------------------------------------------------------------
 // Constant Definitions
@@ -33,11 +34,32 @@ extern "C" {
 // Private Function Prototypes
 //-----------------------------------------------------------------
 
+void cdc_task();
+
 //=================================================================
 //-----------------------------------------------------------------
 // Private Functions
 //-----------------------------------------------------------------
 //=================================================================
+
+void cdc_task()
+{
+    static char received_str[64] = "Chars Received: ";
+
+    if (tud_cdc_available()) {
+        char buf[64];
+        uint32_t count = tud_cdc_read(buf, sizeof(buf));
+
+        (void)count;
+
+        tud_cdc_write(received_str, sizeof(received_str));
+        tud_cdc_write(buf, count);
+        tud_cdc_write("\n\r", 2);
+        tud_cdc_write_flush();
+    }
+
+    return;
+}
 
 //=================================================================
 //-----------------------------------------------------------------
@@ -52,8 +74,13 @@ extern "C" {
  */
 void usbTask(void* param)
 {
+    tusb_init();
+
     while (1) {
-        vTaskDelay(100);
+        tud_task();
+        cdc_task();
+
+        vTaskDelay(1);
     }
 }
 
