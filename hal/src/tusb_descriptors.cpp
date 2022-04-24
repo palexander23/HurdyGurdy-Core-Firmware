@@ -56,15 +56,21 @@ tusb_desc_device_t const desc_device = {
 #define EPNUM_CDC_OUT 0x02
 #define EPNUM_CDC_IN 0x82
 
+// Define Endpoint numbers for the MIDI Interface
+#define EPNUM_MIDI_OUT 0x01
+#define EPNUM_MIDI_IN 0x01
+
 // Assign a number to each of the interfaces present starting from 0.
 // Add a final value that automatically gives the number of interfaces present.
 enum {
     ITF_NUM_CDC = 0,
     ITF_NUM_CDC_DATA,
+    ITF_NUM_MIDI,
+    ITF_NUM_MIDI_STREAMING,
     ITF_NUM_TOTAL,
 };
 
-#define CONFIG_TOTAL_LEN (TUD_CONFIG_DESC_LEN + TUD_CDC_DESC_LEN)
+#define CONFIG_TOTAL_LEN (TUD_CONFIG_DESC_LEN + TUD_CDC_DESC_LEN + TUD_MIDI_DESC_LEN)
 
 uint8_t const desc_fs_configuration[] {
     // Configuration Descriptor
@@ -72,6 +78,9 @@ uint8_t const desc_fs_configuration[] {
 
     // CDC Interface Descriptor
     TUD_CDC_DESCRIPTOR(ITF_NUM_CDC, 4, EPNUM_CDC_NOTIF, 8, EPNUM_CDC_OUT, EPNUM_CDC_IN, 64),
+
+    // MIDI Interface Descriptor
+    TUD_MIDI_DESCRIPTOR(ITF_NUM_MIDI, 0, EPNUM_MIDI_OUT, (0x80 | EPNUM_MIDI_IN), 64),
 };
 
 // Definitions for High Speed Configuration
@@ -83,6 +92,9 @@ uint8_t const desc_hs_configuration[] = {
 
     // CDC Interface Descriptor, The endpoint size has been increased to 512 bytes
     TUD_CDC_DESCRIPTOR(ITF_NUM_CDC, 4, EPNUM_CDC_NOTIF, 8, EPNUM_CDC_OUT, EPNUM_CDC_IN, 512),
+
+    // MIDI Interface Descriptor
+    TUD_MIDI_DESCRIPTOR(ITF_NUM_MIDI, 0, EPNUM_MIDI_OUT, (0x80 | EPNUM_MIDI_IN), 512),
 };
 
 tusb_desc_device_qualifier_t const desc_device_qualifier = {
@@ -106,6 +118,7 @@ char const* string_desc_arr[] = {
     "TinyUSB Device", // 2: Product
     "123456789012", // 3: Serials, should use chip ID
     "TinyUSB CDC", // 4: CDC Interface
+    "TinyUSB MIDI" // 5: MIDI Interface
 };
 
 //-----------------------------------------------------------------
